@@ -1,20 +1,32 @@
-/* --- VARIABLES --- */
+/* --- 1. VARIABLES & CONFIGURACIÓN --- */
 :root {
-    --red-primary: #C8102E;
+    --red-primary: #C8102E; /* Rojo Institucional */
     --red-dark: #a00c24;
     --gold: #D4AF37;
+    --white: #ffffff;
+    --gray-bg: #f8f9fa;
 }
 
 body {
     font-family: 'Montserrat', sans-serif;
     overflow-x: hidden;
-    background-color: #fdfdfd;
+    background-color: var(--white);
+    color: #333;
 }
 
-/* --- PORTADA (HERO) --- */
+/* --- 2. UTILIDADES --- */
+.divider {
+    height: 4px; 
+    width: 60px;
+    background: var(--red-primary);
+    border-radius: 2px;
+    margin-bottom: 1rem;
+}
+
+/* --- 3. PORTADA (HERO) --- */
 .hero {
     background: radial-gradient(circle at center, #ffffff 0%, #f0f0f0 100%);
-    min-height: 85vh; /* Altura optimizada */
+    min-height: 85vh; /* Se ve bien en móviles y PC */
 }
 
 .logo-float {
@@ -26,9 +38,10 @@ body {
 .slogan {
     font-weight: 800;
     font-size: 2.5rem;
+    line-height: 1.2;
 }
 
-/* Efecto Aurora corregido y continuo */
+/* Efecto Aurora (Texto Brillante) */
 .avance-aurora {
     background: linear-gradient(90deg, var(--red-primary), #ff4d6d, #fff, #ff4d6d, var(--red-primary));
     background-size: 200% auto;
@@ -38,7 +51,7 @@ body {
     animation: shineText 4s linear infinite;
 }
 
-/* --- BOTÓN PERSONALIZADO --- */
+/* --- 4. BOTONES --- */
 .btn-custom {
     background-color: var(--red-primary);
     color: white;
@@ -59,6 +72,7 @@ body {
     box-shadow: 0 5px 20px rgba(200, 16, 46, 0.4);
 }
 
+/* Efecto Barrido de Luz en Botón */
 .shine-sweep::after {
     content: '';
     position: absolute;
@@ -69,13 +83,7 @@ body {
 }
 .shine-sweep:hover::after { left: 150%; }
 
-/* --- TARJETAS DEL EQUIPO --- */
-.divider {
-    height: 4px; width: 60px;
-    background: var(--red-primary);
-    border-radius: 2px;
-}
-
+/* --- 5. TARJETAS (TEAM) --- */
 .card-team {
     border: none;
     background: white;
@@ -89,7 +97,7 @@ body {
 /* Presidente Destacado */
 .card-president {
     border: 2px solid var(--red-primary);
-    background: #fffafa;
+    background: #fffafa; /* Tinte muy sutil rojo */
 }
 
 /* Vacantes */
@@ -102,9 +110,10 @@ body {
 .card-vacante:hover {
     border-color: var(--red-primary);
     background-color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-/* --- EFECTO BRILLO (SHINE) --- */
+/* Efecto Brillo al pasar el mouse sobre tarjetas */
 .shine-hover::before {
     content: '';
     position: absolute;
@@ -125,7 +134,77 @@ body {
     transition: 0.7s;
 }
 
-/* --- ANIMACIONES --- */
+/* --- 6. PESTAÑAS DE PROPUESTAS (TABS) --- */
+
+/* Contenedor del menú para permitir scroll en móvil */
+.nav-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+    padding-bottom: 5px; 
+    margin: 0 -10px; /* Para que llegue a los bordes en movil */
+    padding: 0 10px 10px 10px;
+}
+
+/* Scrollbar invisible pero funcional */
+.nav-wrapper::-webkit-scrollbar { height: 4px; }
+.nav-wrapper::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+
+/* Botones del menú (Pills) */
+.nav-custom .nav-link {
+    color: #666;
+    background-color: white;
+    border: 1px solid #eee;
+    margin: 0 5px;
+    border-radius: 50px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-custom .nav-link:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.nav-custom .nav-link.active {
+    background-color: var(--red-primary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(200, 16, 46, 0.3);
+    border-color: var(--red-primary);
+}
+
+/* Tarjeta de Contenido de Propuestas */
+.proposal-card {
+    background: white;
+    border-radius: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Lista de propuestas */
+.proposal-list li {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    padding-left: 10px;
+    border-left: 3px solid transparent;
+    transition: border-left 0.3s;
+}
+
+.proposal-list li:hover {
+    border-left: 3px solid var(--red-primary);
+    background-color: #fcfcfc;
+}
+
+/* Iconos de la lista alineados */
+.proposal-list i {
+    margin-right: 12px;
+    width: 25px; 
+    text-align: center;
+}
+
+/* --- 7. ANIMACIONES KEYFRAMES --- */
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-12px); }
@@ -135,9 +214,13 @@ body {
     to { background-position: 200% center; }
 }
 
-/* Ajustes Responsive */
+/* --- 8. MEDIA QUERIES (MÓVIL) --- */
 @media (max-width: 768px) {
     .slogan { font-size: 1.8rem; }
-    .hero { min-height: 60vh; }
+    .hero { min-height: 70vh; }
     .card-team { margin-bottom: 10px; }
+    
+    /* En móvil, los iconos de la lista de propuestas se ven mejor arriba */
+    .proposal-list li { padding-left: 0; border-left: none; }
+    .proposal-list li:hover { border-left: none; background: none; }
 }
